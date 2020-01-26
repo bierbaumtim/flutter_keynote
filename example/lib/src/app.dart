@@ -26,7 +26,16 @@ class KeynoteExampleApp extends StatelessWidget {
     return KeynoteApp(
       title: 'Flutter Keynote Example',
       slides: slides,
-      transition: KeynoteTransition.rightToLeft,
+      transition: KeynoteTransition.fade,
+      theme: ThemeData(
+        textTheme: TextTheme(
+          display4: TextStyle(
+            fontSize: 70.0,
+            fontWeight: FontWeight.bold
+          )
+        )
+      ),
+      swipeGesture: true,
     );
   }
 

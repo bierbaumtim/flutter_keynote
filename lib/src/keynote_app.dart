@@ -11,12 +11,20 @@ class KeynoteApp extends StatelessWidget {
   final String title;
   final List<Widget> slides;
   final KeynoteTransition transition;
+  final ThemeData theme;
+  final ThemeData darkTheme;
+  final ThemeMode themeMode;
+  final bool swipeGesture;
 
   const KeynoteApp({
     Key key,
     @required this.slides,
     this.transition = KeynoteTransition.fade,
-    this.title = 'Flutter Keynote'
+    this.title = 'Flutter Keynote',
+    this.theme,
+    this.darkTheme,
+    this.themeMode,
+    this.swipeGesture = true,
   }) : super(key: key);
 
   @override
@@ -31,11 +39,17 @@ class KeynoteApp extends StatelessWidget {
           return MaterialApp(
             title: this.title,
             debugShowCheckedModeBanner: false,
+            theme: this.theme,
+            darkTheme: this.darkTheme,
+            themeMode: this.themeMode,
             initialRoute: keynoteProvider.getPageIndex().toString(),
             onGenerateRoute: (RouteSettings settings) {
               return PageTransition(
                 type: getTransitionType(transition),
-                child: SlideBase(child: slides[int.parse(settings.name)])
+                child: SlideBase(
+                  child: slides[int.parse(settings.name)],
+                  swipeGesture: swipeGesture,
+                )
               );
             },
           );

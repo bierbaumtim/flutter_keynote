@@ -7,8 +7,9 @@ import 'package:flutter_keynote/src/providers/keynote_provider.dart';
 class SlideBase extends StatefulWidget {
 
   final Widget child;
+  final bool swipeGesture;
 
-  SlideBase({Key key, @required this.child}) : super(key: key);
+  SlideBase({Key key, @required this.child, this.swipeGesture}) : super(key: key);
 
   @override
   _SlideBaseState createState() => _SlideBaseState();
@@ -17,8 +18,6 @@ class SlideBase extends StatefulWidget {
 class _SlideBaseState extends State<SlideBase> {
   
   final FocusNode focusNode = FocusNode();
-  DragStartDetails _startDetails;
-  DragUpdateDetails _updateDetails;
 
   @override
   void initState() { 
@@ -49,7 +48,9 @@ class _SlideBaseState extends State<SlideBase> {
               }
             }
           },
-          child: addSwipeDetector(keynoteProvider)
+          child: widget.swipeGesture ?
+            addSwipeDetector(keynoteProvider) :
+            widget.child
         );
       }
     );
@@ -57,18 +58,11 @@ class _SlideBaseState extends State<SlideBase> {
 
   Widget addSwipeDetector(KeynoteProvider keynoteProvider) {
     return GestureDetector(
-      onHorizontalDragStart: (DragStartDetails startDetails) {
-        _startDetails = startDetails;
-      },
-      onHorizontalDragUpdate: (DragUpdateDetails updateDetails) {
-        _updateDetails = updateDetails;
-      },
-      onHorizontalDragEnd: (DragEndDetails endDetails) {
-        double dy = _updateDetails.globalPosition.dy - _startDetails.globalPosition.dy;
-        if(dy > 10) {
+      onPanUpdate: (DragUpdateDetails endDetails) {
+        if(endDetails.delta.dx > 10) {
           keynoteProvider.previousPage(context);
         }
-        if(dy < -10) {
+        if(endDetails.delta.dx < -10) {
           keynoteProvider.nextPage(context);
         }
       },
