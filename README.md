@@ -3,7 +3,8 @@
 A Flutter package to create presentations very easy with Flutter pages.
 
 <br/>
-[![flutter platform](https://img.shields.io/badge/Platform-Flutter-yellow.svg)](https://flutter.io)
+
+[![flutter platform](https://img.shields.io/badge/Platform-Flutter-yellow.svg)](https://flutter.dev/)
 [![BSD-2-Clause](https://img.shields.io/badge/BSD-2-Clause.svg?style=flat-square)](https://opensource.org/licenses/)
 
 ## Usage
