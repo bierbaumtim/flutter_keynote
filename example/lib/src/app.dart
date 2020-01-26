@@ -20,10 +20,14 @@ final List<Widget> slides = [
 ];
 
 class KeynoteExampleApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return KeynoteApp(
-      slides: slides
+      title: 'Flutter Keynote Example',
+      slides: slides,
+      transition: KeynoteTransition.rightToLeft,
     );
   }
+
 }

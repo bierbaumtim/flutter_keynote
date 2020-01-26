@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import 'package:flutter_keynote/src/providers/slide_provider.dart';
+import 'package:flutter_keynote/src/providers/keynote_provider.dart';
 
 class SlideBase extends StatefulWidget {
 
@@ -17,6 +17,8 @@ class SlideBase extends StatefulWidget {
 class _SlideBaseState extends State<SlideBase> {
   
   final FocusNode focusNode = FocusNode();
+  DragStartDetails _startDetails;
+  DragUpdateDetails _updateDetails;
 
   @override
   void initState() { 
@@ -33,23 +35,44 @@ class _SlideBaseState extends State<SlideBase> {
   Widget build(BuildContext context) {
     FocusScope.of(context).requestFocus(focusNode);
 
-    return Consumer<SlideProvider>(
-      builder: (BuildContext context, SlideProvider slideProvider, _) {
+    return Consumer<KeynoteProvider>(
+      builder: (BuildContext context, KeynoteProvider keynoteProvider, _) {
         return RawKeyboardListener(
           focusNode: focusNode,
           onKey: (RawKeyEvent keyEvent) {
             if(keyEvent.runtimeType == RawKeyUpEvent) {
               if(keyEvent.logicalKey == LogicalKeyboardKey.arrowRight){
-                slideProvider.nextPage(context);
+                keynoteProvider.nextPage(context);
               }
               if(keyEvent.logicalKey == LogicalKeyboardKey.arrowLeft){
-                slideProvider.previousPage(context);
+                keynoteProvider.previousPage(context);
               }
             }
           },
-          child: widget.child
+          child: addSwipeDetector(keynoteProvider)
         );
       }
+    );
+  }
+
+  Widget addSwipeDetector(KeynoteProvider keynoteProvider) {
+    return GestureDetector(
+      onHorizontalDragStart: (DragStartDetails startDetails) {
+        _startDetails = startDetails;
+      },
+      onHorizontalDragUpdate: (DragUpdateDetails updateDetails) {
+        _updateDetails = updateDetails;
+      },
+      onHorizontalDragEnd: (DragEndDetails endDetails) {
+        double dy = _updateDetails.globalPosition.dy - _startDetails.globalPosition.dy;
+        if(dy > 10) {
+          keynoteProvider.previousPage(context);
+        }
+        if(dy < -10) {
+          keynoteProvider.nextPage(context);
+        }
+      },
+      child: widget.child
     );
   }
 

@@ -1,3 +1,6 @@
-## [0.0.1] - TODO: Add release date.
+## [0.1.0] - Initial version
 
-* TODO: Describe initial release.
+- Added KeynoteApp
+- Added KeynoteTransition
+- Added docs
+- Added example usage

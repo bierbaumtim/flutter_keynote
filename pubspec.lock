@@ -96,7 +96,7 @@ packages:
     source: hosted
     version: "0.0.4"
   page_transition:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: page_transition
       url: "https://pub.dartlang.org"
@@ -124,7 +124,7 @@ packages:
     source: hosted
     version: "2.4.0"
   provider:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: provider
       url: "https://pub.dartlang.org"

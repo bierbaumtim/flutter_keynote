@@ -1,6 +1,7 @@
 # Flutter Keynote Package
 
-A Flutter package to create presentations with app pages.
+A Flutter package to create presentations very easy with Flutter pages.
+
 <br/>
 [![flutter platform](https://img.shields.io/badge/Platform-Flutter-yellow.svg)](https://flutter.io)
 [![BSD-2-Clause](https://img.shields.io/badge/BSD-2-Clause.svg?style=flat-square)](https://opensource.org/licenses/)
@@ -23,15 +24,24 @@ import 'package:flutter_keynote/flutter_keynote.dart';
 final List<Widget> slides = [
   FirstSlide(),
   SecondSlide(),
+  Hero1Slide(),
+  Hero2Slide(),
+  AnimatedContainerSlide(),
+  FlareSlide(),
+  LastSlide(),
 ];
 
 class KeynoteExampleApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return KeynoteApp(
-      slides: slides
+      title: 'Flutter Keynote Example',
+      slides: slides,
+      transition: KeynoteTransition.rightToLeft,
     );
   }
+
 }
 
 ```

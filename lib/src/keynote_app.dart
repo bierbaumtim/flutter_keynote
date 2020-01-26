@@ -1,32 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keynote/src/keynote_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:page_transition/page_transition.dart';
 
-import 'package:flutter_keynote/src/providers/slide_provider.dart';
+import 'package:flutter_keynote/src/providers/keynote_provider.dart';
 import 'package:flutter_keynote/src/slide_base.dart';
 
 class KeynoteApp extends StatelessWidget {
 
-  final List<Widget> slides;
   final String title;
+  final List<Widget> slides;
+  final KeynoteTransition transition;
 
-  const KeynoteApp({Key key, @required this.slides, this.title}) : super(key: key);
+  const KeynoteApp({
+    Key key,
+    @required this.slides,
+    this.transition = KeynoteTransition.fade,
+    this.title = 'Flutter Keynote'
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => SlideProvider(maxLength: slides.length)),
+        ChangeNotifierProvider(create: (_) => KeynoteProvider(maxLength: slides.length)),
       ],
-      child: Consumer<SlideProvider>(
-        builder: (BuildContext context, SlideProvider slideProvider, _) {
+      child: Consumer<KeynoteProvider>(
+        builder: (BuildContext context, KeynoteProvider keynoteProvider, _) {
           return MaterialApp(
-            title: this.title ?? '',
+            title: this.title,
             debugShowCheckedModeBanner: false,
-            initialRoute: slideProvider.getPageIndex().toString(),
+            initialRoute: keynoteProvider.getPageIndex().toString(),
             onGenerateRoute: (RouteSettings settings) {
-              return MaterialPageRoute(
-                builder: (_) => SlideBase(child: slides[int.parse(settings.name)])
+              return PageTransition(
+                type: getTransitionType(transition),
+                child: SlideBase(child: slides[int.parse(settings.name)])
               );
             },
           );

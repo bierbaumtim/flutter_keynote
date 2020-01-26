@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
-class SlideProvider with ChangeNotifier {
+class KeynoteProvider with ChangeNotifier {
 
   final int maxLength;
 
   int _slideActive = 0;
 
-  SlideProvider({@required this.maxLength});
+  KeynoteProvider({@required this.maxLength});
 
   int getPageIndex() => _slideActive;
 
   void nextPage(context) {
+    if(_slideActive == maxLength - 1) return;
+
     _slideActive++;
     notifyListeners();
     Navigator.pushNamed(context, _slideActive.toString());
