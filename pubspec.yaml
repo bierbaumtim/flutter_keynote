@@ -1,6 +1,7 @@
 name: flutter_keynote
 description: A new Flutter package project.
-version: 0.1.0
+version: 0.1.1
+author: Alberto Chamorro<a.chamorro.ruiz@gmail.com>
 homepage: https://github.com/ach4m0/flutter_keynote
 
 environment:
