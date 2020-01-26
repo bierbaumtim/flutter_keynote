@@ -14,7 +14,7 @@ You should ensure that you add the `flutter_keynote` as a dependency in your flu
 
 ```yaml
 dependencies:
-  page_transition: "^1.1.5"
+  flutter_keynote:
 ```
 
 Then you can use the KeynoteApp widget:
@@ -39,7 +39,16 @@ class KeynoteExampleApp extends StatelessWidget {
     return KeynoteApp(
       title: 'Flutter Keynote Example',
       slides: slides,
-      transition: KeynoteTransition.rightToLeft,
+      transition: KeynoteTransition.fade, // Default value
+      theme: ThemeData(
+        textTheme: TextTheme(
+          display4: TextStyle(
+            fontSize: 70.0,
+            fontWeight: FontWeight.bold
+          )
+        )
+      ),
+      swipeGesture: true, // Default value
     );
   }
 

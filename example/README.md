@@ -1,16 +1,52 @@
-# example
+# Flutter Keynote Example App
 
-A new Flutter project.
+A Flutter app to show the functionality for flutter_keynote package.
 
-## Getting Started
+You can see this example running [here](https://ach4m0.github.io/flutter_keynote/).
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Usage
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+```yaml
+dependencies:
+  flutter_keynote:
+```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Then you can use the KeynoteApp widget:
+
+```dart
+import 'package:flutter_keynote/flutter_keynote.dart';
+
+final List<Widget> slides = [
+  FirstSlide(),
+  SecondSlide(),
+  Hero1Slide(),
+  Hero2Slide(),
+  AnimatedContainerSlide(),
+  FlareSlide(),
+  LastSlide(),
+];
+
+class KeynoteExampleApp extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return KeynoteApp(
+      title: 'Flutter Keynote Example',
+      slides: slides,
+      transition: KeynoteTransition.fade, // Default value
+      theme: ThemeData(
+        textTheme: TextTheme(
+          display4: TextStyle(
+            fontSize: 70.0,
+            fontWeight: FontWeight.bold
+          )
+        )
+      ),
+      swipeGesture: true, // Default value
+    );
+  }
+
+}
+
+```

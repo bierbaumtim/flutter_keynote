@@ -4,3 +4,5 @@
 - Added KeynoteTransition
 - Added docs
 - Added example usage
+- Added theming support
+- Added swipe gesture support
