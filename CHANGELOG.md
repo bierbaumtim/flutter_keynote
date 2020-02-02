@@ -10,3 +10,7 @@
 ## [0.1.1] - Added License and Author
 
 - Added LICENSE file and author info
+
+## [0.1.2] - Added support to more keys
+
+- Added support to pageUp, pageDown, arrowUp and arrowDown

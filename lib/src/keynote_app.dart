@@ -7,7 +7,6 @@ import 'package:flutter_keynote/src/providers/keynote_provider.dart';
 import 'package:flutter_keynote/src/slide_base.dart';
 
 class KeynoteApp extends StatelessWidget {
-
   final String title;
   final List<Widget> slides;
   final KeynoteTransition transition;
@@ -29,33 +28,29 @@ class KeynoteApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => KeynoteProvider(maxLength: slides.length)),
+        ChangeNotifierProvider(
+            create: (_) => KeynoteProvider(maxLength: slides.length)),
       ],
       child: Consumer<KeynoteProvider>(
-        builder: (BuildContext context, KeynoteProvider keynoteProvider, _) {
-          return MaterialApp(
-            title: this.title,
-            debugShowCheckedModeBanner: false,
-            theme: this.theme,
-            darkTheme: this.darkTheme,
-            themeMode: this.themeMode,
-            initialRoute: keynoteProvider.getPageIndex().toString(),
-            onGenerateRoute: (RouteSettings settings) {
-              return PageTransition(
-                type: getTransitionType(transition),
-                child: SlideBase(
-                  child: slides[int.parse(settings.name)],
-                  swipeGesture: swipeGesture,
-                )
-              );
-            },
-          );
-        }
-      ),
+          builder: (BuildContext context, KeynoteProvider keynoteProvider, _) =>
+              MaterialApp(
+                title: this.title,
+                debugShowCheckedModeBanner: false,
+                theme: this.theme,
+                darkTheme: this.darkTheme,
+                themeMode: this.themeMode,
+                initialRoute: keynoteProvider.getPageIndex().toString(),
+                onGenerateRoute: (RouteSettings settings) {
+                  return PageTransition(
+                      type: getTransitionType(transition),
+                      child: SlideBase(
+                        child: slides[int.parse(settings.name)],
+                        swipeGesture: swipeGesture,
+                      ));
+                },
+              )),
     );
-
   }
 }

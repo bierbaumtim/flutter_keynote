@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class KeynoteProvider with ChangeNotifier {
-
   final int maxLength;
 
   int _slideActive = 0;
@@ -11,7 +10,7 @@ class KeynoteProvider with ChangeNotifier {
   int getPageIndex() => _slideActive;
 
   void nextPage(context) {
-    if(_slideActive == maxLength - 1) return;
+    if (_slideActive == maxLength - 1) return;
 
     _slideActive++;
     notifyListeners();
@@ -19,11 +18,10 @@ class KeynoteProvider with ChangeNotifier {
   }
 
   void previousPage(context) {
-    if(_slideActive != 0){
+    if (_slideActive != 0) {
       Navigator.pop(context);
       _slideActive--;
     }
     notifyListeners();
   }
-
 }
