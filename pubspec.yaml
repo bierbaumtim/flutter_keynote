@@ -1,7 +1,6 @@
 name: flutter_keynote
 description: A Flutter package to create presentations very easy with Flutter pages.
-version: 0.1.2
-author: Alberto Chamorro <a.chamorro.ruiz@gmail.com>
+version: 0.1.3
 homepage: https://github.com/ach4m0/flutter_keynote
 
 environment:

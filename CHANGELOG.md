@@ -14,3 +14,7 @@
 ## [0.1.2] - Added support to more keys
 
 - Added support to pageUp, pageDown, arrowUp and arrowDown
+
+## [0.1.3] - Added macos to the example app
+
+- Added macos to the example app

@@ -32,7 +32,7 @@ class Hero1Slide extends StatelessWidget {
             )
           )
         ],
-        
+
       ),
     );
   }
