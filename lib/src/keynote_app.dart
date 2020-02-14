@@ -14,6 +14,7 @@ class KeynoteApp extends StatelessWidget {
   final ThemeData darkTheme;
   final ThemeMode themeMode;
   final bool swipeGesture;
+  final KeynoteProvider keynoteProvider;
 
   const KeynoteApp({
     Key key,
@@ -24,6 +25,7 @@ class KeynoteApp extends StatelessWidget {
     this.darkTheme,
     this.themeMode,
     this.swipeGesture = true,
+    this.keynoteProvider,
   }) : super(key: key);
 
   @override
@@ -31,26 +33,30 @@ class KeynoteApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-            create: (_) => KeynoteProvider(maxLength: slides.length)),
+          create: (_) =>
+              keynoteProvider ?? KeynoteProvider(maxLength: slides.length),
+        ),
       ],
       child: Consumer<KeynoteProvider>(
-          builder: (BuildContext context, KeynoteProvider keynoteProvider, _) =>
-              MaterialApp(
-                title: this.title,
-                debugShowCheckedModeBanner: false,
-                theme: this.theme,
-                darkTheme: this.darkTheme,
-                themeMode: this.themeMode,
-                initialRoute: keynoteProvider.getPageIndex().toString(),
-                onGenerateRoute: (RouteSettings settings) {
-                  return PageTransition(
-                      type: getTransitionType(transition),
-                      child: SlideBase(
-                        child: slides[int.parse(settings.name)],
-                        swipeGesture: swipeGesture,
-                      ));
-                },
-              )),
+        builder: (BuildContext context, KeynoteProvider keynoteProvider, _) =>
+            MaterialApp(
+          title: this.title,
+          debugShowCheckedModeBanner: false,
+          theme: this.theme,
+          darkTheme: this.darkTheme,
+          themeMode: this.themeMode,
+          initialRoute: keynoteProvider.getPageIndex().toString(),
+          onGenerateRoute: (RouteSettings settings) {
+            return PageTransition(
+              type: getTransitionType(transition),
+              child: SlideBase(
+                child: slides[int.parse(settings.name)],
+                swipeGesture: swipeGesture,
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }
