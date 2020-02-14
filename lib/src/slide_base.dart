@@ -20,8 +20,11 @@ class SlideBase extends StatefulWidget {
   final Widget child;
   final bool swipeGesture;
 
-  SlideBase({Key key, @required this.child, this.swipeGesture})
-      : super(key: key);
+  SlideBase({
+    Key key,
+    @required this.child,
+    this.swipeGesture,
+  }) : super(key: key);
 
   @override
   _SlideBaseState createState() => _SlideBaseState();
@@ -46,8 +49,8 @@ class _SlideBaseState extends State<SlideBase> {
     FocusScope.of(context).requestFocus(focusNode);
 
     return Consumer<KeynoteProvider>(
-        builder: (BuildContext context, KeynoteProvider keynoteProvider, _) {
-      return RawKeyboardListener(
+      builder: (BuildContext context, KeynoteProvider keynoteProvider, _) {
+        return RawKeyboardListener(
           focusNode: focusNode,
           onKey: (RawKeyEvent keyEvent) {
             if (keyEvent.runtimeType == RawKeyUpEvent) {
@@ -62,20 +65,23 @@ class _SlideBaseState extends State<SlideBase> {
           },
           child: widget.swipeGesture
               ? addSwipeDetector(keynoteProvider)
-              : widget.child);
-    });
+              : widget.child,
+        );
+      },
+    );
   }
 
   Widget addSwipeDetector(KeynoteProvider keynoteProvider) {
     return GestureDetector(
-        onPanUpdate: (DragUpdateDetails endDetails) {
-          if (endDetails.delta.dx > 10) {
-            keynoteProvider.previousPage(context);
-          }
-          if (endDetails.delta.dx < -10) {
-            keynoteProvider.nextPage(context);
-          }
-        },
-        child: widget.child);
+      onPanUpdate: (DragUpdateDetails endDetails) {
+        if (endDetails.delta.dx > 10) {
+          keynoteProvider.previousPage(context);
+        }
+        if (endDetails.delta.dx < -10) {
+          keynoteProvider.nextPage(context);
+        }
+      },
+      child: widget.child,
+    );
   }
 }
