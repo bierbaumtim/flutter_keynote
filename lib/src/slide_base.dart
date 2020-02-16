@@ -63,9 +63,11 @@ class _SlideBaseState extends State<SlideBase> {
               }
             }
           },
-          child: widget.swipeGesture
-              ? addSwipeDetector(keynoteProvider)
-              : widget.child,
+          child: Material(
+            child: widget.swipeGesture
+                ? addSwipeDetector(keynoteProvider)
+                : widget.child,
+          ),
         );
       },
     );
