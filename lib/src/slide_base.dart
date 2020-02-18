@@ -19,12 +19,15 @@ const List<LogicalKeyboardKey> _PREVIOUS_PAGE_BINDINGS = [
 class SlideBase extends StatefulWidget {
   final Widget child;
   final bool swipeGesture;
+  final bool handleKeyboardInputs;
 
-  SlideBase({
+  const SlideBase({
     Key key,
     @required this.child,
     this.swipeGesture,
-  }) : super(key: key);
+    this.handleKeyboardInputs,
+  })  : assert(child != null),
+        super(key: key);
 
   @override
   _SlideBaseState createState() => _SlideBaseState();
@@ -53,6 +56,9 @@ class _SlideBaseState extends State<SlideBase> {
         return RawKeyboardListener(
           focusNode: focusNode,
           onKey: (RawKeyEvent keyEvent) {
+            if (!widget.handleKeyboardInputs) {
+              return;
+            }
             if (keyEvent.runtimeType == RawKeyUpEvent) {
               if (_NEXT_PAGE_BINDINGS.contains(keyEvent.logicalKey)) {
                 keynoteProvider.nextPage(context);

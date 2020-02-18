@@ -14,6 +14,7 @@ class KeynoteApp extends StatelessWidget {
   final ThemeData darkTheme;
   final ThemeMode themeMode;
   final bool swipeGesture;
+  final bool handleKeyboardInputs;
   final KeynoteProvider keynoteProvider;
 
   const KeynoteApp({
@@ -25,6 +26,7 @@ class KeynoteApp extends StatelessWidget {
     this.darkTheme,
     this.themeMode,
     this.swipeGesture = true,
+    this.handleKeyboardInputs = true,
     this.keynoteProvider,
   }) : super(key: key);
 
@@ -52,6 +54,7 @@ class KeynoteApp extends StatelessWidget {
               child: SlideBase(
                 child: slides[int.parse(settings.name)],
                 swipeGesture: swipeGesture,
+                handleKeyboardInputs: handleKeyboardInputs,
               ),
             );
           },
